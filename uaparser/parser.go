@@ -3,7 +3,6 @@ package uaparser
 import (
 	"bytes"
 	"fmt"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"reflect"
 	"regexp"
@@ -11,6 +10,8 @@ import (
 	"strings"
 	"sync"
 	"unicode"
+
+	"gopkg.in/yaml.v2"
 )
 
 type Parser struct {

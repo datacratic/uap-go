@@ -7,6 +7,8 @@ import (
 
 type Device struct {
 	Family string
+	Brand  string
+	Model  string
 }
 
 type DevicePattern struct {
@@ -30,9 +32,34 @@ func (dvcPattern *DevicePattern) Match(line string, dvc *Device) {
 	} else if groupCount >= 1 {
 		dvc.Family = matches[1]
 	}
+
+	if len(dvcPattern.BrandReplacement) > 0 {
+		dvc.Brand = allMatchesReplacement(dvcPattern.BrandReplacement, matches)
+	} else if groupCount >= 2 {
+		dvc.Brand = matches[2]
+	}
+
+	if len(dvcPattern.ModelReplacement) > 0 {
+		dvc.Model = allMatchesReplacement(dvcPattern.ModelReplacement, matches)
+	} else if groupCount >= 3 {
+		dvc.Model = matches[3]
+	}
+
 	dvc.Family = strings.TrimSpace(dvc.Family)
+	dvc.Brand = strings.TrimSpace(dvc.Brand)
+	dvc.Model = strings.TrimSpace(dvc.Model)
 }
 
 func (dvc *Device) ToString() string {
-	return dvc.Family
+	var str string
+	if dvc.Family != "" {
+		str += dvc.Family
+	}
+	if dvc.Brand != "" {
+		str += " " + dvc.Brand
+	}
+	if dvc.Model != "" {
+		str += " " + dvc.Model
+	}
+	return str
 }

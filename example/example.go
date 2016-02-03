@@ -1,9 +1,10 @@
 package main
 
 import (
-	"../uaparser" // You could change this to a github repo as well
 	"fmt"
 	"os"
+
+	"github.com/datacratic/uap-go/uaparser"
 )
 
 func main() {

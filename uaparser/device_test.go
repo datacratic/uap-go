@@ -2,9 +2,10 @@ package uaparser
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"testing"
+
+	"gopkg.in/yaml.v2"
 )
 
 func getTestMap(file string) []map[string]string {
@@ -38,9 +39,20 @@ func dvcInitParser(regexFile string) {
 
 func deviceTest(c *Client, test map[string]string) bool {
 	if c.Device.Family != test["family"] {
-		fmt.Printf("Expected: %v\nActual: %v\n", test, c.Device)
+		fmt.Printf("Expected: %v\nActual: %v\n", test, c.Device.Family)
 		return false
 	}
+
+	if c.Device.Brand != test["brand"] {
+		fmt.Printf("Expected: %v\nActual: %v\n", test, c.Device.Brand)
+		return false
+	}
+
+	if c.Device.Model != test["model"] {
+		fmt.Printf("Expected: %v\nActual: %v\n", test, c.Device.Model)
+		return false
+	}
+
 	return true
 }
 
